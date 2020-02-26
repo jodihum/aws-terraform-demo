@@ -20,3 +20,5 @@ Create a Lambda function in JavaScript and host it on the above infrastructure. 
 
 2. I am assuming for HA it is sufficient to use Multi-AZ RDS, and that I don't need to have another copy in a different region.
 
+3. I am assuming it is OK to use Lambda Proxy Integration.  It seems sufficient for my purposes, and easier.
+
