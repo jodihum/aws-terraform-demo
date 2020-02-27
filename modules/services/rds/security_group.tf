@@ -1,3 +1,6 @@
+/*
+TODO - fix all this
+
 resource "aws_security_group" "mysql_database_security_group" {
   name        = "database-security-group"
   description = "Allow access to MySQL database from private network."
@@ -18,3 +21,5 @@ resource "aws_security_group" "mysql_database_security_group" {
     ]
   }
 }
+
+*/

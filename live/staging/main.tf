@@ -12,12 +12,13 @@ module "vpc" {
   source = "../../modules/services/vpc"
 }
 
+/*
 module "rds" {
   source = "../../modules/services/rds"
 
   subnet_group_name = module.vpc.subnet_group_name
 }
-
+*/
 
 module "cloud-front" {
   source = "../../modules/services/cloud-front"
