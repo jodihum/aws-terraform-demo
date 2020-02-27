@@ -1,4 +1,8 @@
-resource "aws_api_gateway_rest_api" "ag" {
+module "lambda" {
+  source = "../lambda"
+}
+
+resource "aws_api_gateway_rest_api" "lambda_gateway" {
   name        = "Jodi API Gateway"
   description = "A REST API Gateway to be used with Lambda"
 
@@ -7,63 +11,66 @@ resource "aws_api_gateway_rest_api" "ag" {
   }
 }
 
-resource "aws_api_gateway_resource" "example_api_resource" {
-  rest_api_id = aws_api_gateway_rest_api.ag.id
-  parent_id = aws_api_gateway_rest_api.ag.root_resource_id
-  path_part = "messages"
+resource "aws_api_gateway_resource" "proxy" {
+   rest_api_id = aws_api_gateway_rest_api.lambda_gateway.id
+   parent_id   = aws_api_gateway_rest_api.lambda_gateway.root_resource_id
+   path_part   = "{proxy+}"
 }
 
-resource "aws_api_gateway_method" "example_api_method" {
-  rest_api_id = aws_api_gateway_rest_api.ag.id
-  resource_id = aws_api_gateway_resource.example_api_resource.id
-  http_method = "GET"
-  authorization = "NONE"
+resource "aws_api_gateway_method" "proxy" {
+   rest_api_id   = aws_api_gateway_rest_api.lambda_gateway.id
+   resource_id   = aws_api_gateway_resource.proxy.id
+   http_method   = "ANY"
+   authorization = "NONE"
 }
 
-#This MOCK stuff is just temporary for testing that it is working before I make the Lambda
-resource "aws_api_gateway_integration" "MyDemoIntegration" {
-  rest_api_id          = aws_api_gateway_rest_api.ag.id
-  resource_id          = aws_api_gateway_resource.example_api_resource.id
-  http_method          = aws_api_gateway_method.example_api_method.http_method
-  type                 = "MOCK"
+resource "aws_api_gateway_integration" "lambda_proxy" {
+   rest_api_id = aws_api_gateway_rest_api.lambda_gateway.id
+   resource_id = aws_api_gateway_method.proxy.resource_id
+   http_method = aws_api_gateway_method.proxy.http_method
 
-  request_templates = {
-     "application/json" =  <<EOF
-      {
-       "statusCode" : 200
-      }
-      EOF
-  }
-}
+   integration_http_method = "POST"
+   type                    = "AWS_PROXY"
+   uri                     = module.lambda.invoke_arn
+ }
+
+#For handling an empty path at the root of the API
+
+resource "aws_api_gateway_method" "proxy_root" {
+   rest_api_id   = aws_api_gateway_rest_api.lambda_gateway.id
+   resource_id   = aws_api_gateway_rest_api.lambda_gateway.root_resource_id
+   http_method   = "ANY"
+   authorization = "NONE"
+ }
+
+ resource "aws_api_gateway_integration" "lambda_root" {
+   rest_api_id = aws_api_gateway_rest_api.lambda_gateway.id
+   resource_id = aws_api_gateway_method.proxy_root.resource_id
+   http_method = aws_api_gateway_method.proxy_root.http_method
+
+   integration_http_method = "POST"
+   type                    = "AWS_PROXY"
+   uri                     = module.lambda.invoke_arn
+ }
+
 
 resource "aws_api_gateway_deployment" "beta_deployment" {
-  depends_on = [aws_api_gateway_integration.MyDemoIntegration]
+   depends_on = [
+     aws_api_gateway_integration.lambda_proxy,
+     aws_api_gateway_integration.lambda_root,
+   ]
 
-  rest_api_id = aws_api_gateway_rest_api.ag.id
-  stage_name  = "beta"
-}
-
-resource "aws_api_gateway_method_response" "response_200" {
-  rest_api_id = aws_api_gateway_rest_api.ag.id
-  resource_id = aws_api_gateway_resource.example_api_resource.id
-  http_method = aws_api_gateway_method.example_api_method.http_method
-  status_code = "200"
-}
-
-resource "aws_api_gateway_integration_response" "MyDemoIntegrationResponse" {
-  rest_api_id = aws_api_gateway_rest_api.ag.id
-  resource_id = aws_api_gateway_resource.example_api_resource.id
-  http_method = aws_api_gateway_method.example_api_method.http_method
-  status_code = aws_api_gateway_method_response.response_200.status_code
+   rest_api_id = aws_api_gateway_rest_api.lambda_gateway.id
+   stage_name  = "beta"
 }
 
 output "invoke_url" {
   value = aws_api_gateway_deployment.beta_deployment.invoke_url
-  description = "The invoke url for the beta stage" 
+  description = "The invoke url for the beta stage."
 }
 
 output "stage_name" {
   value = aws_api_gateway_deployment.beta_deployment.stage_name
-  description = "The name of the stage" 
+  description = "The name of the stage."
 }
 
