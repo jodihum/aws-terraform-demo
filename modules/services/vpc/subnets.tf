@@ -1,3 +1,4 @@
+#TODO - could replace this with something like this: https://github.com/infrablocks/terraform-aws-base-networking/blob/master/private_subnets.tf
 resource "aws_subnet" "public_subnet_one" {
     vpc_id = aws_vpc.vpc.id
     cidr_block = var.public_subnet_one_cidr
