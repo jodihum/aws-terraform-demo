@@ -17,27 +17,27 @@ resource "aws_nat_gateway" "nat_two" {
 }
 
 resource "aws_instance" "nat_one" {
-  ami                         = "${data.aws_ami.nat.id}"
-  instance_type               = "${var.nat_instance_type}"
+  ami                         = data.aws_ami.nat.id
+  instance_type               = var.nat_instance_type
   source_dest_check           = false
-  subnet_id                   = aws_subnet.public_nat_one.id
+  subnet_id                   = aws_subnet.public_subnet_one.id
   associate_public_ip_address = true
-  vpc_security_group_ids      = [aws_security_group.access_via_nat.id]
+#  vpc_security_group_ids      = [aws_security_group.access_via_nat.id]
 
-  tags {
+  tags = {
     Name = "Nat One"
   }
 }
 
 resource "aws_instance" "nat_two" {
-  ami                         = "${data.aws_ami.nat.id}"
-  instance_type               = "${var.nat_instance_type}"
+  ami                         = data.aws_ami.nat.id
+  instance_type               = var.nat_instance_type
   source_dest_check           = false
-  subnet_id                   = aws_subnet.public_nat_2.id
+  subnet_id                   = aws_subnet.public_subnet_two.id
   associate_public_ip_address = true
-  vpc_security_group_ids      = [aws_security_group.access_via_nat.id]
+#  vpc_security_group_ids      = [aws_security_group.access_via_nat.id]
 
-  tags {
+  tags = {
     Name = "Nat Two"
   }
 }

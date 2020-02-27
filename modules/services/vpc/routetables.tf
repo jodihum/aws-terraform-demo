@@ -10,7 +10,7 @@ resource "aws_route_table" "public_subnet_one" {
         gateway_id = aws_internet_gateway.gateway.id
     }
 
-    tags {
+    tags = {
       Name = "Route Table Public Subnet One"
     }
 }
@@ -25,10 +25,10 @@ resource "aws_route_table" "public_subnet_two" {
 
     route {
         cidr_block = local.all_ips
-        gateway_id = aws_nat_gateway.nat_gateway.id
+        gateway_id = aws_internet_gateway.gateway.id
     }
 
-    tags {
+    tags = {
       Name = "Route Table Public Subnet Two"
     }
 }
@@ -47,10 +47,10 @@ resource "aws_route_table" "private_subnet_one" {
 
     route {
         cidr_block = local.all_ips
-        gateway_id = aws_nat_gateway.nat_gateway_one.id
+        gateway_id = aws_nat_gateway.nat_one.id
     }
     
-    tags {
+    tags = {
       Name = "Route Table Private Subnet One"
     }
 }
@@ -65,10 +65,10 @@ resource "aws_route_table" "private_subnet_two" {
 
     route {
         cidr_block = local.all_ips
-        gateway_id = aws_nat_gateway.nat_gateway_two.id
+        gateway_id = aws_nat_gateway.nat_two.id
     }
 
-    tags {
+    tags = {
       Name = "Route Table Private Subnet Two"
     }
 }
