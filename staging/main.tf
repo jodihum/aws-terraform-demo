@@ -9,24 +9,20 @@ provider "aws" {
 }
 
 module "vpc" {
-  source = "../../modules/services/vpc"
+  source = "../modules/vpc"
 }
 
 /*
 module "rds" {
-  source = "../../modules/services/rds"
+  source = "../modules/rds"
 
   subnet_group_name = module.vpc.subnet_group_name
 }
 */
 
 module "cloud-front" {
-  source = "../../modules/services/cloud-front"
+  source = "../modules/cloud-front"
 }
 
-output "test_output" {
-  value = "TEST OUTPUT"
-  description = "For testing outputs"
-}
 
 
