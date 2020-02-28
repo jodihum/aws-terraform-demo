@@ -1,15 +1,10 @@
-/*
-TODO - fix all this
-
 resource "aws_security_group" "mysql_database_security_group" {
-  name        = "database-security-group"
+  name        = "mysql-database-security-group"
   description = "Allow access to MySQL database from private network."
   vpc_id      = var.vpc_id
 
   tags = {
-    Name                 = "sg-database-${var.component}-${var.deployment_identifier}"
-    Component            = var.component
-    DeploymentIdentifier = var.deployment_identifier
+    Name                 = "MySQL Security Group"
   }
 
   ingress {
@@ -22,4 +17,3 @@ resource "aws_security_group" "mysql_database_security_group" {
   }
 }
 
-*/

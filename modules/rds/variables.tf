@@ -37,14 +37,17 @@ variable "database_instance_class" {
 
 variable "database_name" {
   description = "The name of the database schema to create. If omitted, no database schema is created initially."
+  default = "testdb" 
 }
 
 variable "database_master_user" {
   description = "The password for the master database user."
+  default = "admin"
 }
 
 variable "database_master_user_password" {
   description = "The username for the master database user."
+  default = "thisIsNotAGoodIdea"
 }
 
 variable "database_port" {
