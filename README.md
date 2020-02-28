@@ -15,6 +15,15 @@ Create a highly-available Serverless architecture on AWS using Terraform. The ar
 Part 2 - Coding
 Create a Lambda function in JavaScript and host it on the above infrastructure. The function should return a simple message in JSON and a 200 HTTP status code.
 
+### Steps
+1. Make sure you have access to AWS via your Access Key ID and Secret Access Key.
+2. Go to the staging folder and do terraform init and then terraform apply
+
+### Things that are missing that should be added
+1. Encryption on RDS
+2. Cloud Watch integration
+3. Allowing more that 2 AZs
+
 ### Assumptions
 1. I am assuming that you do not think it is sufficient to use an edge optimized API Gateway, and you want me to create my own Cloud Front distribution as per this article: https://aws.amazon.com/premiumsupport/knowledge-center/api-gateway-cloudfront-distribution/
 
