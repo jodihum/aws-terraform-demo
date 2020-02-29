@@ -17,12 +17,13 @@ Create a Lambda function in JavaScript and host it on the above infrastructure. 
 
 ### Steps
 1. Make sure you have access to AWS via your Access Key ID and Secret Access Key.
-2. Go to the staging folder and do terraform init and then terraform apply
+2. Go to the staging folder and do `terraform init` and then `terraform apply`.
 
 ### Things that are missing that should be added
 1. Encryption on RDS
-2. Cloud Watch integration
-3. Allowing more that 2 AZs
+2. A more clever way of handling the admin password for RDS
+3. Cloud Watch integration
+4. Allowing more that 2 AZs
 
 ### Assumptions
 1. I am assuming that you do not think it is sufficient to use an edge optimized API Gateway, and you want me to create my own Cloud Front distribution as per this article: https://aws.amazon.com/premiumsupport/knowledge-center/api-gateway-cloudfront-distribution/
