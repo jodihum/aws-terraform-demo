@@ -11,9 +11,14 @@ resource "aws_security_group" "mysql_database_security_group" {
     from_port = var.database_port
     to_port   = var.database_port
     protocol  = "tcp"
-    cidr_blocks = [
-      var.private_network_cidr
-    ]
+    security_groups = [var.lambda_security_group]
+  }
+
+  egress {
+    from_port = 0
+    to_port   = 0
+    protocol  = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 }
 

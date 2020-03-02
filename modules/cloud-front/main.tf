@@ -1,13 +1,9 @@
-module "api-gateway" {
-  source = "../api-gateway"
-}
-
 resource "aws_cloudfront_distribution" "ag_distribution" {
   origin {
  #   domain_name = replace(aws_api_gateway_deployment.beta_deployment.invoke_url, "/^https?://([^/]*).*/", "$1")
-    domain_name = replace(module.api-gateway.invoke_url, "/^https?://([^/]*).*/", "$1")
-    origin_path = format("/%s", module.api-gateway.stage_name)
-    origin_id   = format("Custom-%s",module.api-gateway.invoke_url)
+    domain_name = replace(var.api_gateway_invoke_url, "/^https?://([^/]*).*/", "$1")
+    origin_path = format("/%s", var.api_gateway_stage_name)
+    origin_id   = format("Custom-%s",var.api_gateway_invoke_url)
 
     custom_origin_config {
       http_port = 80
@@ -32,7 +28,7 @@ resource "aws_cloudfront_distribution" "ag_distribution" {
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = format("Custom-%s",module.api-gateway.invoke_url)
+    target_origin_id = format("Custom-%s",var.api_gateway_invoke_url)
 
     forwarded_values {
       query_string = false

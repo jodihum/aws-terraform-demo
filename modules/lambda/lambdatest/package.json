@@ -1,0 +1,14 @@
+{
+  "name": "lambdatest",
+  "version": "1.0.0",
+  "description": "For testing if lambda is connecting with rds",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jodi",
+  "license": "ISC",
+  "dependencies": {
+    "mysql": "^2.18.1"
+  }
+}

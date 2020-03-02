@@ -1,7 +1,3 @@
-module "lambda" {
-  source = "../lambda"
-}
-
 resource "aws_api_gateway_rest_api" "lambda_gateway" {
   name        = "Jodi API Gateway"
   description = "A REST API Gateway to be used with Lambda"
@@ -31,7 +27,7 @@ resource "aws_api_gateway_integration" "lambda_proxy" {
 
    integration_http_method = "POST"
    type                    = "AWS_PROXY"
-   uri                     = module.lambda.invoke_arn
+   uri                     = var.lambda_invoke_arn
  }
 
 #For handling an empty path at the root of the API
@@ -50,7 +46,7 @@ resource "aws_api_gateway_method" "proxy_root" {
 
    integration_http_method = "POST"
    type                    = "AWS_PROXY"
-   uri                     = module.lambda.invoke_arn
+   uri                     = var.lambda_invoke_arn
  }
 
 

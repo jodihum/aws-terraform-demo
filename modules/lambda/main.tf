@@ -1,11 +1,17 @@
 resource "aws_lambda_function" "hello_world" {
    function_name = "hello_world_function"
-   filename =  "${path.module}/helloworld.js.zip"  
+   filename =  "${path.module}/lambdatest.zip"
 
-   handler = "helloworld.handler"
+   handler = "index.handler"
    runtime = "nodejs12.x"
 
    role = aws_iam_role.lambda_role.arn
+
+   vpc_config  {
+      subnet_ids = var.private_subnet_ids
+      security_group_ids = [aws_security_group.lambda_security_group.id]
+   }
+
 }
 
 

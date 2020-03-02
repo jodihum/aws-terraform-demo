@@ -7,8 +7,8 @@ variable "private_subnet_ids" {
   type = list(string)
 }
 
-variable "private_network_cidr" {
-  description = "The CIDR of the private network allowed access to the database."
+variable "lambda_security_group" {
+  description = "Security group for lambda."
 }
 
 variable "subnet_group_name" {

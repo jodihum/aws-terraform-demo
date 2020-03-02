@@ -24,14 +24,10 @@ resource "aws_iam_role" "lambda_role" {
 resource "aws_lambda_permission" "apigw" {
     statement_id  = "AllowAPIGatewayInvoke"
     action        = "lambda:InvokeFunction"
-    function_name = aws_lambda_function.hello_world.arn
+    function_name = aws_lambda_function.hello_world.function_name
     principal     = "apigateway.amazonaws.com"
 
-
-#TODO is this needed??
-    # The /*/* portion grants access from any method on any resource
-    # within the API Gateway "REST API".
-#    source_arn = "${aws_api_gateway_deployment.resource_name_of_deployment.execution_arn}/*/*"
+#    source_arn = "${var.api_gateway_deployment_execution_arn}/*/*"
 }
 
 resource "aws_iam_role_policy_attachment" "lambda_attachment_vpc_exec" {
@@ -40,31 +36,11 @@ resource "aws_iam_role_policy_attachment" "lambda_attachment_vpc_exec" {
 }
 
 
-# TODO is this needed?
 /*
-
-resource "aws_iam_policy" "lambda_policy" {
-  description = "IAM Policy for the lambda"
-
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": ${jsonencode(concat(local.logging_policy, var.policies))}
-}
-EOF
-
-}
-
-resource "aws_iam_role_policy_attachment" "lambda_policy_attachment" {
-  role       = aws_iam_role.lambda_role.name
-  policy_arn = aws_iam_policy.lambda_policy.arn
-}
-
 resource "aws_cloudwatch_log_group" "lambda" {
   name              = "/aws/lambda/${var.name}"
   retention_in_days = var.log_retention
 }
-
 */
 
 
