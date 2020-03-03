@@ -13,6 +13,11 @@ variable "api_gateway_deployment_execution_arn" {
   type = string
 }
 
+variable "hostname" {
+  description = "The host name for RDS"
+  type = string
+}
+
 variable "username" {
   description = "User name for the rds database"
   type = string

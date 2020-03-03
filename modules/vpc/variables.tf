@@ -1,16 +1,16 @@
 variable "aws_region" {
     description = "Region for the VPC"
-    default = "us-east-1"
+    default = "us-east-2"
 }
 
 variable "aws_availability_zone_one" {
     description = "Primary AZ"
-    default = "us-east-1a"
+    default = "us-east-2a"
 }
 
 variable "aws_availability_zone_two" {
     description = "Secondary AZ"
-    default = "us-east-1b"
+    default = "us-east-2b"
 }
 
 variable "vpc_cidr" {

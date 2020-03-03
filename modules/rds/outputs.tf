@@ -1,3 +1,8 @@
+output "hostname" {
+  value  = aws_db_instance.rds_mysql.endpoint
+  description = "The endpoint for the database"
+}
+
 output "database_name" {
   value  = aws_db_instance.rds_mysql.name
   description = "The name of the database"
