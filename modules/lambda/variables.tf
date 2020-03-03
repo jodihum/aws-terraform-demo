@@ -13,3 +13,23 @@ variable "api_gateway_deployment_execution_arn" {
   type = string
 }
 
+variable "username" {
+  description = "User name for the rds database"
+  type = string
+}
+
+variable "password" {
+  description = "Password for the rds database"
+  type = string
+}
+
+variable "rds_port" {
+  description = "RDS port"
+  type = string
+  default = 3306
+}
+
+variable "database" {
+  descriptions = "The name of the database to use"
+  type = string
+}

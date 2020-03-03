@@ -12,6 +12,16 @@ resource "aws_lambda_function" "hello_world" {
       security_group_ids = [aws_security_group.lambda_security_group.id]
    }
 
+  environment {
+    variables = {
+      RDS_HOSTNAME = var.hostname
+      RDS_USERNAME = var.username
+      RDS_PASSWORD = var.password
+      RDS_PORT     = var.rds_port
+      RDS_DATABASE = var.database
+    }
+  }
+
 }
 
 
