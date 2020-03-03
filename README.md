@@ -24,11 +24,12 @@ Create a Lambda function in JavaScript and host it on the above infrastructure. 
 2. A more clever way of handling the admin password for RDS
 3. Cloud Watch integration
 4. Allowing more that 2 AZs
+5. Setting up the database schema without using the Lambda.
 
 ### Assumptions
 1. I am assuming that you do not think it is sufficient to use an edge optimized API Gateway, and you want me to create my own Cloud Front distribution as per this article: https://aws.amazon.com/premiumsupport/knowledge-center/api-gateway-cloudfront-distribution/
 
 2. I am assuming for HA it is sufficient to use Multi-AZ RDS, and that I don't need to have another copy in a different region.
 
-3. I am assuming it is OK to use Lambda Proxy Integration.  It seems sufficient for my purposes, and easier.
+3. I am assuming it is OK to use Lambda Proxy Integration.
 
