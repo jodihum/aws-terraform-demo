@@ -19,11 +19,14 @@ Create a Lambda function in JavaScript and host it on the above infrastructure. 
 1. Make sure you have access to AWS via your Access Key ID and Secret Access Key.
 2. Go to the staging folder and do `terraform init` and then `terraform apply`.
 
-### Things that are missing that should be added
+### Things that are missing that should be added or bad that should be fixed
 1. Encryption on RDS
 2. A more clever way of handling the admin password for RDS
 3. Allowing more that 2 AZs
-4. Setting up the database schema without using the Lambda.
+4. Setting up the database schema without using the Lambda
 5. Tests
-6. Drawing of architecture for the readme
+6. More tags
+7. Better descriptions of variables
+8. More consistant naming
+9. Drawing of architecture for the readme
 
