@@ -25,6 +25,7 @@ Create a Lambda function in JavaScript and host it on the above infrastructure. 
 3. Allowing more that 2 AZs
 4. Setting up the database schema without using the Lambda.
 5. Tests
+6. Drawing of architecture for the readme
 
 ### Assumptions
 1. I am assuming that you do not think it is sufficient to use an edge optimized API Gateway, and you want me to create my own Cloud Front distribution as per this article: https://aws.amazon.com/premiumsupport/knowledge-center/api-gateway-cloudfront-distribution/
