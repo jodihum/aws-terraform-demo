@@ -30,6 +30,6 @@ variable "rds_port" {
 }
 
 variable "database" {
-  descriptions = "The name of the database to use"
+  description = "The name of the database to use"
   type = string
 }
