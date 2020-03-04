@@ -15,11 +15,34 @@ exports.handler =  (event, context, callback) => {
   //prevent timeout from waiting event loop
   context.callbackWaitsForEmptyEventLoop = false;
   pool.getConnection(function(error, connection) {
-      if (error) callback(error);
-    // Use the connection
-    //const sql = "CREATE TABLE MESSAGE (message VARCHAR(255))";
-    //const sql = "INSERT INTO MESSAGE (message) VALUES ('I am MySQL')";
-    const sql = "select * from MESSAGE";
+    if (error) callback(error);
+      
+    console.log("Event path: " + event.path);
+    
+    // Handle hello world path
+    if (event.path == "/helloworld") {
+      var res ={
+        "statusCode": 200,
+        "headers": {
+            "Content-Type": "*/*"
+          }
+        };
+        res.body = "Hello World"
+        callback(null,res);
+    }
+   
+   // Handle others
+    var sql;
+    if (event.path == "/table") {
+        sql = "CREATE TABLE MESSAGE (message VARCHAR(255))";
+    } else if (event.path == "/message") {
+        if (event.httpMethod == "POST") {
+                sql = "INSERT INTO MESSAGE (message) VALUES ('I am MySQL')";
+            }  else {
+                  sql = "select * from MESSAGE";
+        }
+    }
+   
     connection.query(sql, function (error, results, fields) {
       // And done with the connection.
       connection.release();
@@ -30,13 +53,12 @@ exports.handler =  (event, context, callback) => {
             "Content-Type": "*/*"
           }
         };
-        res.body = JSON.stringify(results[0]);
+      res.body = JSON.stringify(results);
+      
       if (error) callback(error);
       else callback(null,res);
     });
   });
 };
-
-
 
 
