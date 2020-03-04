@@ -3,78 +3,40 @@ console.log('Loading hello world function');
 
 const mysql = require('mysql');
 
-function connection() {
-  return mysql.createConnection({
+var pool  = mysql.createPool({
     host     : process.env.RDS_HOSTNAME,
     user     : process.env.RDS_USERNAME,
     password : process.env.RDS_PASSWORD,
     port     : process.env.RDS_PORT,
     database: process.env.RDS_DATABASE
-  });
-}
+});
 
-exports.handler = function(event, context, callback) {
-    console.log('Received event:', JSON.stringify(event, null, 2));
-
-    var res ={
+exports.handler =  (event, context, callback) => {
+  //prevent timeout from waiting event loop
+  context.callbackWaitsForEmptyEventLoop = false;
+  pool.getConnection(function(error, connection) {
+      if (error) callback(error);
+    // Use the connection
+    //const sql = "CREATE TABLE MESSAGE (message VARCHAR(255))";
+    //const sql = "INSERT INTO MESSAGE (message) VALUES ('I am MySQL')";
+    const sql = "select * from MESSAGE";
+    connection.query(sql, function (error, results, fields) {
+      // And done with the connection.
+      connection.release();
+      // Handle error after the release.
+      var res ={
         "statusCode": 200,
         "headers": {
             "Content-Type": "*/*"
-        }
-    };
-
-    let con = connection();
-    var sql;
-    console.log("Event path: " + event.path);
-    
-    if (event.path == "/table") {
-        sql = "CREATE TABLE MESSAGE (message VARCHAR(255))";
-    } else if (event.path == "/message") {
-        if (event.httpMethod == "POST") {
-	     	sql = "INSERT INTO MESSAGE (message) VALUES ('I am MySQL')";
-	    }  else {
-		  sql = "select * from MESSAGE";
-        }
-    } 
-
-    let result = con.query(sql, (err, res) => {
-    
-      if (err) {
-        console.log("query error");
-        throw err;
-      }
-    
-     // why doesn't this show up in the logs??
-     console.log("response from query: " + JSON.stringify(res));
-     // how do I get res out of here and into the callback?
-     return res;
-    });
-    
-    console.log(result);
-    con.destroy();
-    
-    
-   var greeter = 'World';
-   if (event.path == "/helloworld") {
-      greeter = '?'
-      
-      if (event.greeter && event.greeter!=="") {
-          greeter =  event.greeter;
-      } else if (event.body && event.body !== "") {
-          var body = JSON.parse(event.body);
-          if (body.greeter && body.greeter !== "") {
-              greeter = body.greeter;
           }
-      } else if (event.queryStringParameters && event.queryStringParameters.greeter && event.queryStringParameters.greeter !== "") {
-          greeter = event.queryStringParameters.greeter;
-      } else if (event.multiValueHeaders && event.multiValueHeaders.greeter && event.multiValueHeaders.greeter != "") {
-          greeter = event.multiValueHeaders.greeter.join(" and ");
-      } else if (event.headers && event.headers.greeter && event.headers.greeter != "") {
-          greeter = event.headers.greeter;
-      } 
-    
-      
-    }
-    res.body = "Hello, " + greeter + "!";
-    callback(null, res);
+        };
+        res.body = JSON.stringify(results[0]);
+      if (error) callback(error);
+      else callback(null,res);
+    });
+  });
 };
+
+
+
+

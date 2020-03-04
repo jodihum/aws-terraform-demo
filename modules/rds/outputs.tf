@@ -1,5 +1,5 @@
 output "hostname" {
-  value  = aws_db_instance.rds_mysql.endpoint
+  value  = aws_db_instance.rds_mysql.address
   description = "The endpoint for the database"
 }
 
