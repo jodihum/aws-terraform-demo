@@ -33,7 +33,6 @@ Create a Lambda function in JavaScript and host it on the above infrastructure. 
 6. More tags
 7. Better descriptions of variables
 8. More consistant naming
-9. Drawing of architecture for the readme
-10. Documentation for using the lambda (which also needs fixing)
-11. Readme for each module
+9. Documentation for using the lambda (which also needs fixing)
+10. Readme for each module
 
