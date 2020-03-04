@@ -22,7 +22,7 @@ resource "aws_instance" "nat_one" {
   source_dest_check           = false
   subnet_id                   = aws_subnet.public_subnet_one.id
   associate_public_ip_address = true
-#  vpc_security_group_ids      = [aws_security_group.access_via_nat.id]
+  vpc_security_group_ids      = [aws_security_group.access_via_nat.id]
 
   tags = {
     Name = "Nat One"
@@ -35,7 +35,7 @@ resource "aws_instance" "nat_two" {
   source_dest_check           = false
   subnet_id                   = aws_subnet.public_subnet_two.id
   associate_public_ip_address = true
-#  vpc_security_group_ids      = [aws_security_group.access_via_nat.id]
+  vpc_security_group_ids      = [aws_security_group.access_via_nat.id]
 
   tags = {
     Name = "Nat Two"
@@ -52,4 +52,18 @@ data "aws_ami" "nat" {
   }
 
   owners = ["amazon"]
+}
+
+resource "aws_security_group" "access_via_nat" {
+  name = "Access to nat instance"
+  description = "Access to internet via nat instance for private nodes"
+  vpc_id = aws_vpc.vpc.id
+
+  # outbound internet access
+  egress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }

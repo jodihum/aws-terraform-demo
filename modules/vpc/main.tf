@@ -10,6 +10,5 @@ resource "aws_internet_gateway" "gateway" {
     vpc_id = aws_vpc.vpc.id
 }
 
-# NOTE I am using default ACLs and Security Groups. If there are problems - look here. 
 
 

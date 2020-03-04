@@ -1,7 +1,5 @@
-#TODO - give lambda access to RDS
-#IAM role which dictates what other AWS services the Lambda function may access
 resource "aws_iam_role" "lambda_role" {
-   name = "LambdaRDSRole"
+   name = var.role_name 
 
    assume_role_policy = <<EOF
 {
@@ -35,13 +33,6 @@ resource "aws_iam_role_policy_attachment" "lambda_attachment_vpc_exec" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
 }
 
-
-/*
-resource "aws_cloudwatch_log_group" "lambda" {
-  name              = "/aws/lambda/${var.name}"
-  retention_in_days = var.log_retention
-}
-*/
 
 
 

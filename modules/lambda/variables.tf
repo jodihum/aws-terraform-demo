@@ -13,6 +13,12 @@ variable "api_gateway_deployment_execution_arn" {
   type = string
 }
 
+variable "role_name" {
+  description = "Name of Lambda Role - IMPORTANT terraform apply will not work if this role name already exists!!"
+  type = string
+  default = "LambdaRDSRole"
+}
+
 variable "hostname" {
   description = "The host name for RDS"
   type = string

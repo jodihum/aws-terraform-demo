@@ -1,6 +1,5 @@
 resource "aws_cloudfront_distribution" "ag_distribution" {
   origin {
- #   domain_name = replace(aws_api_gateway_deployment.beta_deployment.invoke_url, "/^https?://([^/]*).*/", "$1")
     domain_name = replace(var.api_gateway_invoke_url, "/^https?://([^/]*).*/", "$1")
     origin_path = format("/%s", var.api_gateway_stage_name)
     origin_id   = format("Custom-%s",var.api_gateway_invoke_url)

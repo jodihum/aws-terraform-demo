@@ -5,7 +5,7 @@ terraform {
 }
 
 provider "aws" {
-  region = "us-east-2"
+  region = "us-east-1"
 }
 
 module "vpc" {
@@ -23,6 +23,7 @@ module "lambda" {
   password = module.rds.database_master_user_password
   database = module.rds.database_name
   rds_port = module.rds.database_port
+  role_name = "LambdaRDSRole-${module.vpc.vpc_id}"
 }
 
 module "rds" {

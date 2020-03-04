@@ -1,5 +1,5 @@
 resource "aws_api_gateway_rest_api" "lambda_gateway" {
-  name        = "Jodi API Gateway"
+  name        = "Lambda API Gateway"
   description = "A REST API Gateway to be used with Lambda"
 
   endpoint_configuration {
@@ -58,15 +58,5 @@ resource "aws_api_gateway_deployment" "beta_deployment" {
 
    rest_api_id = aws_api_gateway_rest_api.lambda_gateway.id
    stage_name  = "beta"
-}
-
-output "invoke_url" {
-  value = aws_api_gateway_deployment.beta_deployment.invoke_url
-  description = "The invoke url for the beta stage."
-}
-
-output "stage_name" {
-  value = aws_api_gateway_deployment.beta_deployment.stage_name
-  description = "The name of the stage."
 }
 
