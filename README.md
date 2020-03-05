@@ -22,7 +22,7 @@ Terraform & AWS
 ### Things that are missing that should be added
 1. Encryption on RDS
 2. A more clever way of handling the admin password for RDS
-3. Allowing more that 2 AZs
+3. Allowing more than 2 AZs
 4. Setting up the database schema without using the Lambda
 5. Tests
 6. More tags
