@@ -25,7 +25,7 @@ resource "aws_lambda_permission" "apigw" {
     function_name = aws_lambda_function.hello_world.function_name
     principal     = "apigateway.amazonaws.com"
 
-#    source_arn = "${var.api_gateway_deployment_execution_arn}/*/*"
+    source_arn = "${var.api_gateway_deployment_execution_arn}/*/*"
 }
 
 resource "aws_iam_role_policy_attachment" "lambda_attachment_vpc_exec" {
