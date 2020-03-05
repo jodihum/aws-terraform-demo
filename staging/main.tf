@@ -1,3 +1,7 @@
+locals {
+  project = "Jodi Test"
+}
+
 terraform {
   required_providers {
     aws = "~> 2.50"
@@ -11,7 +15,7 @@ provider "aws" {
 module "vpc" {
   source = "../modules/vpc"
   
-  project = "Jodi Test"
+  project = local.project 
 }
 
 module "lambda" {
@@ -26,6 +30,7 @@ module "lambda" {
   database = module.rds.database_name
   rds_port = module.rds.database_port
   role_name = "LambdaRDSRole-${module.vpc.vpc_id}"
+  project = local.project
 }
 
 module "rds" {
@@ -35,13 +40,14 @@ module "rds" {
   lambda_security_group = module.lambda.security_group_id
   vpc_id = module.vpc.vpc_id
   private_subnet_ids = module.vpc.private_subnet_ids
+  project = local.project
 }
 
 module "api_gateway" {
   source = "../modules/api-gateway"
 
   lambda_invoke_arn = module.lambda.invoke_arn
-  project = "Jodi Test"
+  project = local.project
 }
 
 module "cloud-front" {
@@ -49,7 +55,7 @@ module "cloud-front" {
  
   api_gateway_invoke_url = module.api_gateway.invoke_url
   api_gateway_stage_name = module.api_gateway.stage_name
-  project = "Jodi Test"
+  project = local.project
 }
 
 

@@ -3,10 +3,6 @@ resource "aws_security_group" "mysql_database_security_group" {
   description = "Allow access to MySQL database from private network."
   vpc_id      = var.vpc_id
 
-  tags = {
-    Name                 = "MySQL Security Group"
-  }
-
   ingress {
     from_port = var.database_port
     to_port   = var.database_port
@@ -20,5 +16,12 @@ resource "aws_security_group" "mysql_database_security_group" {
     protocol  = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  tags = merge(
+    local.common_tags,
+    map(
+      "Name", "MySQL Security Group"
+    )
+  )
 }
 

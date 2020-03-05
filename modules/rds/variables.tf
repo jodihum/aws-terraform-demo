@@ -69,3 +69,22 @@ variable "maintenance_window" {
   description = "The time window in which maintenance should take place."
   default = "mon:03:01-mon:05:00"
 }
+
+/*
+  Tags
+*/
+
+variable "owner" {
+    description = "The person who created this resource"
+    default = "Jodi"
+}
+
+variable "project" {
+    description = "The name of the project using this module and resource"
+}
+
+variable "name" {
+    description = "The name for this database"
+    default = "RDS MySQL Database"
+}
+

@@ -44,3 +44,17 @@ variable "database" {
   description = "The name of the database to use"
   type = string
 }
+
+/* 
+  Tags
+*/
+
+variable "owner" {
+    description = "The person who created this resource"
+    default = "Jodi"
+}
+
+variable "project" {
+    description = "The name of the project using this module and resource"
+}
+

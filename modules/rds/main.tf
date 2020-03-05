@@ -1,3 +1,11 @@
+locals {
+  common_tags = {
+    project      = var.project
+    module       = "rds"
+    Owner        = var.owner
+  }
+}
+
 resource "aws_db_instance" "rds_mysql" {
   allocated_storage    = var.allocated_storage
   storage_type         = var.storage_type
@@ -21,9 +29,12 @@ resource "aws_db_instance" "rds_mysql" {
   backup_window           = var.backup_window
   maintenance_window      = var.maintenance_window
 
-  tags = {
-    Name                 = "RDS MySQL Database"
-  }
+  tags = merge(
+    local.common_tags,
+    map(
+      "Name", var.name             
+    )
+  )
 }
 
 

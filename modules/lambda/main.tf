@@ -1,3 +1,11 @@
+locals {
+  common_tags = {
+    project      = var.project
+    module       = "lambda"       
+    Owner        = var.owner
+  }
+}
+
 resource "aws_lambda_function" "hello_world" {
    function_name = "hello_world_function"
    filename =  "${path.module}/lambdatest.zip"
@@ -21,6 +29,8 @@ resource "aws_lambda_function" "hello_world" {
       RDS_DATABASE = var.database
     }
   }
+
+  tags = local.common_tags
 
 }
 

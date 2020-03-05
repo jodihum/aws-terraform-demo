@@ -17,6 +17,8 @@ resource "aws_iam_role" "lambda_role" {
 }
  EOF
 
+  tags = local.common_tags
+
 }
 
 resource "aws_lambda_permission" "apigw" {
