@@ -51,4 +51,20 @@ variable "nat_instance_type" {
     default = "t2.micro"
 }
 
+/* 
+  Tags
+*/
 
+variable "owner" {
+    description = "The person who created this resource"
+    default = "Jodi"
+}
+
+variable "project" {
+    description = "The name of the project using this module and resource"
+}
+
+variable "vpc_name" {
+    description = "The name to use for the VPC"
+    default = "Jodi's VPC"
+}

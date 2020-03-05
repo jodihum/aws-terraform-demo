@@ -10,6 +10,8 @@ provider "aws" {
 
 module "vpc" {
   source = "../modules/vpc"
+  
+  project = "Jodi Test"
 }
 
 module "lambda" {

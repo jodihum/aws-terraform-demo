@@ -1,19 +1,47 @@
 resource "aws_eip" "nat_one" {
-    vpc = true
+  vpc = true
+
+  tags = merge(
+    local.common_tags,
+    map(
+      "Name", "EIP for NAT One"
+    )
+  )
 }
 
 resource "aws_nat_gateway" "nat_one" {
-    allocation_id = aws_eip.nat_one.id
-    subnet_id = aws_subnet.public_subnet_one.id
+  allocation_id = aws_eip.nat_one.id
+  subnet_id = aws_subnet.public_subnet_one.id
+  
+  tags = merge(
+    local.common_tags,
+    map(
+      "Name", "NAT Gateway One" 
+    )
+  )
 }
 
 resource "aws_eip" "nat_two" {
-    vpc = true
+  vpc = true
+
+  tags = merge(
+    local.common_tags,
+    map(
+      "Name", "EIP for NAT Two"
+    )
+  )
 }
 
 resource "aws_nat_gateway" "nat_two" {
-    allocation_id = aws_eip.nat_two.id
-    subnet_id = aws_subnet.public_subnet_two.id
+  allocation_id = aws_eip.nat_two.id
+  subnet_id = aws_subnet.public_subnet_two.id
+ 
+  tags = merge(
+    local.common_tags,
+    map(
+      "Name", "NAT Gateway Two" 
+    )
+  )
 }
 
 resource "aws_instance" "nat_one" {
@@ -24,9 +52,12 @@ resource "aws_instance" "nat_one" {
   associate_public_ip_address = true
   vpc_security_group_ids      = [aws_security_group.access_via_nat.id]
 
-  tags = {
-    Name = "Nat One"
-  }
+  tags = merge(
+    local.common_tags,
+    map(
+      "Name", "NAT One" 
+    )
+  )
 }
 
 resource "aws_instance" "nat_two" {
@@ -37,9 +68,12 @@ resource "aws_instance" "nat_two" {
   associate_public_ip_address = true
   vpc_security_group_ids      = [aws_security_group.access_via_nat.id]
 
-  tags = {
-    Name = "Nat Two"
-  }
+  tags = merge(
+    local.common_tags,
+    map(
+      "Name", "NAT Two" 
+    )
+  )
 }
 
 # gets ami for use with nat

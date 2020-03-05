@@ -10,9 +10,12 @@ resource "aws_route_table" "public_subnet_one" {
         gateway_id = aws_internet_gateway.gateway.id
     }
 
-    tags = {
-      Name = "Route Table Public Subnet One"
-    }
+    tags = merge(
+        local.common_tags,
+        map(
+          "Name", "Route Table Public Subnet One"
+        )
+    ) 
 }
 
 resource "aws_route_table_association" "public_subnet_one" {
@@ -28,9 +31,12 @@ resource "aws_route_table" "public_subnet_two" {
         gateway_id = aws_internet_gateway.gateway.id
     }
 
-    tags = {
-      Name = "Route Table Public Subnet Two"
-    }
+    tags = merge(
+        local.common_tags,
+        map(
+          "Name", "Route Table Public Subnet Two"
+        )
+    ) 
 }
 
 resource "aws_route_table_association" "public_subnet_two" {
@@ -50,9 +56,12 @@ resource "aws_route_table" "private_subnet_one" {
         gateway_id = aws_nat_gateway.nat_one.id
     }
     
-    tags = {
-      Name = "Route Table Private Subnet One"
-    }
+    tags = merge(
+        local.common_tags,
+        map(
+          "Name", "Route Table Private Subnet One"
+        )
+    ) 
 }
 
 resource "aws_route_table_association" "private_subnet_one" {
@@ -68,9 +77,12 @@ resource "aws_route_table" "private_subnet_two" {
         gateway_id = aws_nat_gateway.nat_two.id
     }
 
-    tags = {
-      Name = "Route Table Private Subnet Two"
-    }
+    tags = merge(
+        local.common_tags,
+        map(
+          "Name", "Route Table Private Subnet Two"
+        )
+    ) 
 }
 
 resource "aws_route_table_association" "private_subnet_two" {
