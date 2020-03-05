@@ -17,8 +17,7 @@ Create a Lambda function in JavaScript and host it on the above infrastructure. 
 
 ### Solution
 
-![Jodi AWS network diagram](https://user-images.githubusercontent.com/1429757/75894499-304ac580-5e2c-11ea-9128-5b0a691ddf7f.jpeg)
-
+![Jodi AWS network diagram](https://user-images.githubusercontent.com/1429757/75953389-24511900-5ea9-11ea-925d-a0e890af273a.jpeg)
 
 ### Steps to use
 1. Make sure you have access to AWS via your Access Key ID and Secret Access Key.
