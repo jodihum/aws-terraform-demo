@@ -1,3 +1,11 @@
+locals {
+  common_tags = {
+    project      = var.project
+    module       = "api-gateway"
+    Owner        = var.owner
+  }
+}
+
 resource "aws_api_gateway_rest_api" "lambda_gateway" {
   name        = "Lambda API Gateway"
   description = "A REST API Gateway to be used with Lambda"
@@ -5,6 +13,8 @@ resource "aws_api_gateway_rest_api" "lambda_gateway" {
   endpoint_configuration {
     types = ["REGIONAL"]
   }
+ 
+  tags = local.common_tags
 }
 
 resource "aws_api_gateway_resource" "proxy" {

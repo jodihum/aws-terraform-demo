@@ -41,6 +41,7 @@ module "api_gateway" {
   source = "../modules/api-gateway"
 
   lambda_invoke_arn = module.lambda.invoke_arn
+  project = "Jodi Test"
 }
 
 module "cloud-front" {
@@ -48,6 +49,7 @@ module "cloud-front" {
  
   api_gateway_invoke_url = module.api_gateway.invoke_url
   api_gateway_stage_name = module.api_gateway.stage_name
+  project = "Jodi Test"
 }
 
 

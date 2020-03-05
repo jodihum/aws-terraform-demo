@@ -1,3 +1,11 @@
+locals {
+  common_tags = {
+    project      = var.project
+    module       = "cloud-front"
+    Owner        = var.owner
+  }
+} 
+
 resource "aws_cloudfront_distribution" "ag_distribution" {
   origin {
     domain_name = replace(var.api_gateway_invoke_url, "/^https?://([^/]*).*/", "$1")
@@ -42,5 +50,13 @@ resource "aws_cloudfront_distribution" "ag_distribution" {
     default_ttl            = 3600
     max_ttl                = 86400
   }
+
+
+  tags = merge(
+    local.common_tags,
+    map(
+      "Name", var.distribution_name
+    )
+  )
 }
 
