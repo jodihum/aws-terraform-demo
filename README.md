@@ -25,10 +25,9 @@ Terraform & AWS
 3. Allowing more than 2 AZs
 4. Setting up the database schema without using the Lambda
 5. Tests
-6. More tags
-7. Better descriptions of variables
-8. More consistent naming
-9. Documentation for using the lambda
-10. Readme for each module
+6. Better descriptions of variables
+7. More consistent naming
+8. Documentation for using the lambda
+9. Readme for each module
 
 
