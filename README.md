@@ -1,25 +1,21 @@
 # freeup
 
-This is the Coding Challenge given to me by Free Up
+### What this code does
 
-### The challenge
-Create a private GitHub repository containing the code and any documentation as you see fit (at least a README.md).
-
-Part 1 - Terraform & AWS
-Create a highly-available Serverless architecture on AWS using Terraform. The architecture consists of:
+Terraform & AWS
+1. Create a highly-available Serverless architecture on AWS using Terraform. The architecture consists of:
 - Cloudfront
 - API Gateway
 - Lambda
 - RDS (MySQL)
 
-Part 2 - Coding
-Create a Lambda function in JavaScript and host it on the above infrastructure. The function should return a simple message in JSON and a 200 HTTP status code.
+2. Create a Lambda function in JavaScript and host it on the above infrastructure. The function returns a simple message in JSON and a 200 HTTP status code.
 
-### Solution
+### Architecture
 
 ![Jodi AWS network diagram](https://user-images.githubusercontent.com/1429757/75953389-24511900-5ea9-11ea-925d-a0e890af273a.jpeg)
 
-### Steps to use
+### Steps to use this
 1. Make sure you have access to AWS via your Access Key ID and Secret Access Key.
 2. Go to the staging folder and do `terraform init` and then `terraform apply`.
 
