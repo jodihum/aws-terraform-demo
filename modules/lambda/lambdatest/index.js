@@ -8,12 +8,12 @@ var pool  = mysql.createPool({
     user     : process.env.RDS_USERNAME,
     password : process.env.RDS_PASSWORD,
     port     : process.env.RDS_PORT,
-    database: process.env.RDS_DATABASE
+    database : process.env.RDS_DATABASE
 });
 
 exports.handler =  (event, context, callback) => {
-  //prevent timeout from waiting event loop
   context.callbackWaitsForEmptyEventLoop = false;
+  
   pool.getConnection(function(error, connection) {
     if (error) callback(error);
       
@@ -44,9 +44,8 @@ exports.handler =  (event, context, callback) => {
     }
    
     connection.query(sql, function (error, results, fields) {
-      // And done with the connection.
       connection.release();
-      // Handle error after the release.
+     
       var res ={
         "statusCode": 200,
         "headers": {
@@ -60,5 +59,6 @@ exports.handler =  (event, context, callback) => {
     });
   });
 };
+
 
 
