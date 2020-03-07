@@ -11,6 +11,8 @@ var pool  = mysql.createPool({
     database : process.env.RDS_DATABASE
 });
 
+let allowedPaths = ["/helloworld","/table","/message"];
+
 exports.handler =  (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
   
@@ -19,19 +21,29 @@ exports.handler =  (event, context, callback) => {
       
     console.log("Event path: " + event.path);
     
+    var res;
+    
+    // Handle bad path
+    if (!allowedPaths.includes(event.path)) {
+      res ={
+        "statusCode": 404
+        };
+        callback(null,res);
+    }
+    
     // Handle hello world path
     if (event.path == "/helloworld") {
-      var res ={
+      res ={
         "statusCode": 200,
         "headers": {
             "Content-Type": "*/*"
           }
         };
-        res.body = "Hello World"
+        res.body = "Hello World";
         callback(null,res);
     }
    
-   // Handle others
+   // Handle table and message
     var sql;
     if (event.path == "/table") {
         sql = "CREATE TABLE MESSAGE (message VARCHAR(255))";
@@ -57,8 +69,6 @@ exports.handler =  (event, context, callback) => {
       if (error) callback(error);
       else callback(null,res);
     });
+    
   });
 };
-
-
-
