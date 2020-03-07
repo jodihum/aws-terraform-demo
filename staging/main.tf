@@ -1,5 +1,7 @@
 locals {
   project = "Jodi Test"
+  owner = "Jodi"
+  region = "eu-west-1"
 }
 
 terraform {
@@ -9,13 +11,18 @@ terraform {
 }
 
 provider "aws" {
-  region = "eu-west-1"
+  region = local.region
 }
 
 module "vpc" {
   source = "../modules/vpc"
+
+  aws_region = local.region
+  aws_availability_zone_one = "${local.region}a"
+  aws_availability_zone_two = "${local.region}b"
   
   project = local.project 
+  owner = local.owner
 }
 
 module "lambda" {
@@ -30,7 +37,9 @@ module "lambda" {
   database = module.rds.database_name
   rds_port = module.rds.database_port
   role_name = "LambdaRDSRole-${module.vpc.vpc_id}"
+
   project = local.project
+  owner = local.owner
 }
 
 module "rds" {
@@ -40,14 +49,18 @@ module "rds" {
   lambda_security_group = module.lambda.security_group_id
   vpc_id = module.vpc.vpc_id
   private_subnet_ids = module.vpc.private_subnet_ids
+
   project = local.project
+  owner = local.owner
 }
 
 module "api_gateway" {
   source = "../modules/api-gateway"
 
   lambda_invoke_arn = module.lambda.invoke_arn
+
   project = local.project
+  owner = local.owner
 }
 
 module "cloud-front" {
@@ -55,7 +68,9 @@ module "cloud-front" {
  
   api_gateway_invoke_url = module.api_gateway.invoke_url
   api_gateway_stage_name = module.api_gateway.stage_name
+
   project = local.project
+  owner = local.owner
 }
 
 

@@ -51,7 +51,6 @@ variable "database" {
 
 variable "owner" {
     description = "The person who created this resource"
-    default = "Jodi"
 }
 
 variable "project" {

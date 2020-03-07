@@ -8,5 +8,4 @@ variable "project" {
 
 variable "owner" {
   description = "The person who created this resource"
-  default = "Jodi"
 }

@@ -12,7 +12,6 @@ variable "api_gateway_stage_name" {
 
 variable "owner" {
     description = "The person who created this resource"
-    default = "Jodi"
 }
 
 variable "project" {

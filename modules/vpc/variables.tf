@@ -1,16 +1,13 @@
 variable "aws_region" {
     description = "Region for the VPC"
-    default = "eu-west-1"
 }
 
 variable "aws_availability_zone_one" {
     description = "Primary AZ"
-    default = "eu-west-1a"
 }
 
 variable "aws_availability_zone_two" {
     description = "Secondary AZ"
-    default = "eu-west-1b"
 }
 
 variable "vpc_cidr" {
@@ -57,7 +54,6 @@ variable "nat_instance_type" {
 
 variable "owner" {
     description = "The person who created this resource"
-    default = "Jodi"
 }
 
 variable "project" {
