@@ -1,7 +1,7 @@
 locals {
   project = "Jodi Test"
   owner = "Jodi"
-  region = "us-east-2
+  region = "us-east-2"
 }
 
 terraform {
