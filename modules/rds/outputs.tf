@@ -23,3 +23,7 @@ output "database_port" {
   description = "The port used by the database"
 }
 
+output "sns_topic_arn" {
+  value = aws_sns_topic.rds_created.arn
+  description = "The SNS topic notified when RDS is created."
+}
