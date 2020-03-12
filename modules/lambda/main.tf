@@ -1,4 +1,5 @@
 locals {
+  lambda_name = "database-schema-lambda"
   common_tags = {
     project      = var.project
     module       = "lambda"       
@@ -79,16 +80,3 @@ resource "aws_lambda_function" "setup_database_schema" {
 
 }
 
-resource "aws_sns_topic_subscription" "database_created" {
-  topic_arn = var.sns_topic
-  protocol  = "lambda"
-  endpoint  = aws_lambda_function.setup_database_schema.arn
-}
-
-resource "aws_lambda_permission" "with_sns" {
-    statement_id = "AllowExecutionFromSNS"
-    action = "lambda:InvokeFunction"
-    function_name = aws_lambda_function.setup_database_schema.function_name
-    principal = "sns.amazonaws.com"
-    source_arn = var.sns_topic
-}

@@ -7,6 +7,8 @@ locals {
 }
 
 resource "aws_db_instance" "rds_mysql" {
+
+  depends_on = [aws_db_event_subscription.rds_created]
   allocated_storage    = var.allocated_storage
   storage_type         = var.storage_type
   engine               = "mysql"
