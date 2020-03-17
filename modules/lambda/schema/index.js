@@ -18,7 +18,7 @@ exports.handler =  (event, context, callback) => {
   pool.getConnection(function(error, connection) {
     if (error) callback(error);
     
-    let sql = "CREATE TABLE MESSAGE (message VARCHAR(255))";
+    let sql = "CREATE TABLE IF NOT EXISTS MESSAGE (message VARCHAR(255))";
    
     connection.query(sql, function (error, results, fields) {
       connection.release();

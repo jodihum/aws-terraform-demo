@@ -11,7 +11,7 @@ var pool  = mysql.createPool({
     database : process.env.RDS_DATABASE
 });
 
-let allowedPaths = ["/helloworld","/table","/message"];
+let allowedPaths = ["/helloworld","/message"];
 
 exports.handler =  (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
@@ -43,16 +43,14 @@ exports.handler =  (event, context, callback) => {
         callback(null,res);
     }
    
-   // Handle table and message
+    // Handle message
     var sql;
-    if (event.path == "/table") {
-        sql = "CREATE TABLE MESSAGE (message VARCHAR(255))";
-    } else if (event.path == "/message") {
-        if (event.httpMethod == "POST") {
-                sql = "INSERT INTO MESSAGE (message) VALUES ('I am MySQL')";
-            }  else {
-                  sql = "select * from MESSAGE";
-        }
+    if (event.path == "/message") {
+      if (event.httpMethod == "POST") {
+        sql = "INSERT INTO MESSAGE (message) VALUES ('I am MySQL')";
+      } else {
+        sql = "select * from MESSAGE";
+      }
     }
    
     connection.query(sql, function (error, results, fields) {
