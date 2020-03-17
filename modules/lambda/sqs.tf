@@ -15,6 +15,33 @@ resource "aws_sqs_queue" "deadletter_queue" {
   tags = local.common_tags
 }
 
+resource "aws_sqs_queue_policy" "test" {
+  queue_url = aws_sqs_queue.task_queue.id
+
+  policy = <<POLICY
+{
+  "Version": "2012-10-17",
+  "Id": "SQSLambdaPolicy",
+  "Statement": [
+    {
+      "Sid": "SQSAllowLambda",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "*"
+      },
+      "Action": "SQS:SendMessage",
+      "Resource": "${aws_sqs_queue.task_queue.arn}", 
+      "Condition": {
+        "ArnEquals": {
+          "aws:SourceArn": "${var.sns_topic}"
+        }
+      }
+    }
+  ]
+}
+POLICY
+}
+
 resource "aws_lambda_event_source_mapping" "queue_input_emitter" {
   event_source_arn = aws_sqs_queue.task_queue.arn
   function_name    = aws_lambda_function.setup_database_schema.arn
