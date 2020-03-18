@@ -2,7 +2,6 @@
 
 ### What this code does
 
-Terraform & AWS
 1. Create a highly-available Serverless architecture on AWS using Terraform. The architecture consists of:
 - Cloudfront
 - API Gateway
