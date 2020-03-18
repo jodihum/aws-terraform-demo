@@ -1,7 +1,7 @@
 locals {
   project = "Jodi Test"
   owner = "Jodi"
-  region = "eu-west-1"
+  region = "us-east-2"
 }
 
 terraform {
@@ -37,6 +37,7 @@ module "lambda" {
   database = module.rds.database_name
   rds_port = module.rds.database_port
   role_name = "LambdaRDSRole-${module.vpc.vpc_id}"
+  sns_topic = module.rds.sns_topic_arn
 
   project = local.project
   owner = local.owner

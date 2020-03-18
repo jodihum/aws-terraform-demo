@@ -7,6 +7,10 @@ locals {
 }
 
 resource "aws_db_instance" "rds_mysql" {
+
+  // subscription must be set up before instance is created so we can 
+  // handle creation event
+  depends_on = [aws_db_event_subscription.rds_created]
   allocated_storage    = var.allocated_storage
   storage_type         = var.storage_type
   engine               = "mysql"
