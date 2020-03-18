@@ -54,4 +54,6 @@ resource "aws_subnet" "private_subnet_two" {
 resource "aws_db_subnet_group" "private_subnet_group" {
   name       = "rds_subnets"
   subnet_ids = [aws_subnet.private_subnet_one.id,aws_subnet.private_subnet_two.id]
+  
+  tags = local.common_tags
 }
