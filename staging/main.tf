@@ -75,4 +75,7 @@ module "cloud-front" {
 }
 
 
-
+output "cloud_front_domain_name" {
+  value = module.cloud-front.domain_name
+  description = "The domain name for the cloud front"
+}
