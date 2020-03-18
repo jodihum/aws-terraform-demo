@@ -22,6 +22,18 @@ Once the database is created, the database schema is set up using a second lambd
 ### Steps to use this
 1. Make sure you have access to AWS via your Access Key ID and Secret Access Key.
 2. Go to the staging folder and do `terraform init` and then `terraform apply`.
+3. At the end of the `terraform apply` it will output the CloudFront domain name.  Use this domain name to access the API as decribed below.
+
+
+### API Documentation
+| Endpoint         | HTTP Method              | Result  |
+| ---------------- |--------------------------| ------- |
+| /helloworld      | any                      | Returns "Hello World" |
+| /message         | POST                     | Adds a message to the message table in the database |
+| /message         | anything except POST     | Returns messages in database |
+| anything else    | any                      | Returns 404 not found error |
+
+
 
 ### Things that are missing that should be added
 1. Encryption on RDS
@@ -30,7 +42,6 @@ Once the database is created, the database schema is set up using a second lambd
 4. Tests
 5. Better descriptions of variables
 6. More consistent naming
-7. Documentation for using the lambda
-8. Readme for each module
+7. Readme for each module
 
 
