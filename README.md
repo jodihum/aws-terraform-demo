@@ -33,14 +33,15 @@ Once the database is created, the database schema is set up using a second lambd
 | anything else    | any                      | Returns 404 not found error |
 
 
+### Points to note
+The Cloud Front distribution is set up to cache the response to GET requests, so if you do GET /message, then POST /message, then GET /message again, you will not receive unless the TTL has expired.
 
 ### Things that are missing that should be added
-1. Encryption on RDS
-2. A more clever way of handling the admin password for RDS
-3. Allowing more than 2 AZs
-4. Tests
-5. Better descriptions of variables
-6. More consistent naming
-7. Readme for each module
+1. A more clever way of handling the admin password for RDS
+2. Allowing more than 2 AZs
+3. Tests
+4. Better descriptions of variables
+5. More consistent naming
+6. Readme for each module
 
 
