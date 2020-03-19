@@ -21,7 +21,8 @@ resource "aws_db_instance" "rds_mysql" {
   password             = var.database_master_user_password
   publicly_accessible  = false
   multi_az             = true
-  storage_encrypted    = false          # TODO this really should be encrypted!
+  storage_encrypted    = var.should_encrypt == "yes" ? true : false
+  kms_key_id           = var.key
   skip_final_snapshot  = true
   db_subnet_group_name = var.subnet_group_name
 
