@@ -70,6 +70,16 @@ variable "maintenance_window" {
   default = "mon:03:01-mon:05:00"
 }
 
+variable "should_encrypt" {
+  description = "Should RDS be encrypted or not - yes or no.  Only certain instance types support encryption so this should be false unless using one of those types."
+  default = "no"
+}
+
+variable "key" {
+  description = "The kms key used to encrypt the database"
+  default = null
+}
+
 /*
   Tags
 */
