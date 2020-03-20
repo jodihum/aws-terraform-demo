@@ -91,3 +91,8 @@ output "cloud_front_domain_name" {
   value = module.cloud-front.domain_name
   description = "The domain name for the cloud front"
 }
+ 
+output "database_master_password" {
+  value = module.rds.database_master_user_password
+  description = "The master password for the rds database.  This is being output because the default is to randomly generate it."
+}

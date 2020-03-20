@@ -6,6 +6,16 @@ locals {
   }
 }
 
+resource "random_string" "db_master_pass" {
+  length            = 40
+  special           = true
+  min_special       = 5
+  override_special  = "!#$%^&*()-_=+[]{}<>:?"
+  keepers           = {
+    password_version  = 1
+  }
+}
+
 resource "aws_db_instance" "rds_mysql" {
 
   // subscription must be set up before instance is created so we can 
@@ -18,7 +28,7 @@ resource "aws_db_instance" "rds_mysql" {
   instance_class       = var.database_instance_class
   name                 = var.database_name
   username             = var.database_master_user
-  password             = var.database_master_user_password
+  password             = var.database_master_user_password == "" ? random_string.db_master_pass.result : var.database_master_user_password
   publicly_accessible  = false
   multi_az             = true
   storage_encrypted    = var.should_encrypt == "yes" ? true : false
