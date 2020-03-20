@@ -2,7 +2,7 @@ locals {
   project = "Jodi Test"
   owner = "Jodi"
   region = "us-east-2"
-  should_encrypt_rds = "yes"
+  should_encrypt_rds = "no"
 }
 
 terraform {
