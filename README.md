@@ -37,11 +37,10 @@ Once the database is created, the database schema is set up using a second lambd
 The Cloud Front distribution is set up to cache the response to GET requests, so if you do GET /message, then POST /message, then GET /message again, the response will not contain the new message unless the TTL has expired.
 
 ### Things that are missing that should be added
-1. A more clever way of handling the admin password for RDS
-2. Allowing more than 2 AZs
-3. Tests
-4. Better descriptions of variables
-5. More consistent naming
-6. Readme for each module
+1. Allowing more than 2 AZs
+2. Tests
+3. Better descriptions of variables
+4. More consistent naming
+5. Readme for each module
 
 
