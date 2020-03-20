@@ -16,7 +16,7 @@
 
 Once the database is created, the database schema is set up using a second lambda function:
 
-![database schema lambda](https://user-images.githubusercontent.com/1429757/76953207-3e0d4a00-6906-11ea-931c-c9a20b131f80.jpeg)
+![database schema lambda](https://user-images.githubusercontent.com/1429757/77164587-86646d80-6aa8-11ea-85b6-a3af336afcd8.jpeg)
 
 ### Steps to use this
 1. Make sure you have access to AWS via your Access Key ID and Secret Access Key.
