@@ -47,7 +47,7 @@ variable "database_master_user" {
 
 variable "database_master_user_password" {
   description = "The username for the master database user."
-  default = "thisIsNotAGoodIdea"
+  default = ""
 }
 
 variable "database_port" {
