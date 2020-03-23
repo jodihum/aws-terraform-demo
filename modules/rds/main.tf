@@ -32,7 +32,7 @@ resource "aws_db_instance" "rds_mysql" {
   publicly_accessible  = false
   multi_az             = true
   storage_encrypted    = var.should_encrypt == "yes" ? true : false
-  kms_key_id           = var.key
+  kms_key_id           = var.should_encrypt == "yes" ? aws_kms_key.rds_key[0].arn : null
   skip_final_snapshot  = true
   db_subnet_group_name = var.subnet_group_name
 

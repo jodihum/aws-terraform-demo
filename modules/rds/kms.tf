@@ -1,12 +1,6 @@
-locals {
-  common_tags = {
-    project      = var.project
-    module       = "kms"
-    Owner        = var.owner
-  }
-}
-
 resource "aws_kms_key" "rds_key" {
+  count = var.should_encrypt == "yes" ? 1 : 0
+
   description = "Key for encrypting RDS"
   enable_key_rotation = true
 
@@ -14,6 +8,7 @@ resource "aws_kms_key" "rds_key" {
 }
 
 resource "aws_kms_alias" "rds_key" {
+  count = var.should_encrypt == "yes" ? 1 : 0
   name = "alias/rds_key"
-  target_key_id = aws_kms_key.rds_key.id
+  target_key_id = var.should_encrypt == "yes" ? aws_kms_key.rds_key[0].id : null
 }
