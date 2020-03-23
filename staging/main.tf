@@ -44,13 +44,6 @@ module "lambda" {
   owner = local.owner
 }
 
-module "kms" {
-  source = "../modules/kms"
-
-  project = local.project
-  owner = local.owner
-}
-
 module "rds" {
   source = "../modules/rds"
 
@@ -58,10 +51,8 @@ module "rds" {
   lambda_security_group = module.lambda.security_group_id
   vpc_id = module.vpc.vpc_id
   private_subnet_ids = module.vpc.private_subnet_ids
-
   database_instance_class = local.should_encrypt_rds == "yes" ? "db.m4.large" : "db.t2.micro" 
   should_encrypt = local.should_encrypt_rds
-  key = local.should_encrypt_rds == "yes" ? module.kms.key_arn : null
 
   project = local.project
   owner = local.owner
