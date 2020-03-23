@@ -7,6 +7,7 @@ resource "aws_kms_key" "rds_key" {
   tags = local.common_tags
 }
 
+// TODO: do I need this?
 //resource "aws_kms_alias" "rds_key" {
 //  count = var.should_encrypt == "yes" ? 1 : 0
 //  name = "alias/rds_key"
